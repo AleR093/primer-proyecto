@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Pastelería • Dulces Momentos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #fdf6ee;
+      --rose: #e8a0a0;
+      --rose-dark: #c96b6b;
+      --brown: #5a3825;
+      --caramel: #d4843e;
+      --sage: #9aaa8e;
+      --text: #3a2318;
+      --muted: #9a7b68;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: white;
+      box-shadow: 0 2px 12px rgba(90,56,37,.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--brown);
+      letter-spacing: .02em;
+    }
+    .logo span { color: var(--rose-dark); font-style: italic; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--rose-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 4rem 3rem 4rem 5rem;
+      gap: 3rem;
+      background: linear-gradient(135deg, #fff9f4 0%, #fdf0e2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fce8d8 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-text { animation: fadeUp .8s ease both; }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--rose);
+      color: white;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      color: var(--brown);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 em { color: var(--rose-dark); font-style: italic; }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 420px;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: .9rem 2.2rem;
+      background: var(--brown);
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: .95rem;
+      letter-spacing: .04em;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background .25s, transform .2s;
+    }
+    .btn:hover { background: var(--caramel); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--brown);
+      color: var(--brown);
+      margin-left: 1rem;
+    }
+    .btn-outline:hover { background: var(--brown); color: white; }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeUp .8s .2s ease both;
+    }
+    .cake-showcase {
+      width: 340px; height: 340px;
+      background: linear-gradient(145deg, #f7d9c4, #f0b89a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9rem;
+      box-shadow: 0 30px 80px rgba(90,56,37,.15), 0 0 0 20px rgba(247,217,196,.3);
+      position: relative;
+    }
+    .cake-badge {
+      position: absolute;
+      bottom: 20px; right: -10px;
+      background: white;
+      border-radius: 16px;
+      padding: .7rem 1.1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--brown);
+    }
+    .cake-badge strong { color: var(--rose-dark); display: block; font-size: 1.1rem; }
+
+    /* ── SECTION TITLE ── */
+    .section-header {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--brown);
+      margin-bottom: .6rem;
+    }
+    .section-header p { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+    .divider {
+      display: flex; align-items: center; justify-content: center;
+      gap: .8rem; margin: 1rem auto 0; width: fit-content;
+    }
+    .divider span { width: 40px; height: 2px; background: var(--rose); border-radius: 2px; }
+
+    /* ── CATEGORIES FILTER ── */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+      padding: 0 2rem 2rem;
+    }
+    .filter-btn {
+      padding: .55rem 1.4rem;
+      border: 2px solid #e8d8cc;
+      background: white;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      font-weight: 500;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: white;
+    }
+
+    /* ── CATALOG GRID ── */
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 1rem 4rem 6rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(90,56,37,.07);
+      transition: transform .3s, box-shadow .3s;
+      animation: fadeUp .6s ease both;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(90,56,37,.14);
+    }
+    .card-img {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--rose-dark);
+      color: white;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .3rem .8rem;
+      border-radius: 20px;
+    }
+    .card-body { padding: 1.4rem 1.5rem 1.8rem; }
+    .card-category {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: .35rem;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--brown);
+      margin-bottom: .5rem;
+    }
+    .card p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--brown);
+      font-weight: 700;
+    }
+    .add-btn {
+      background: var(--rose-dark);
+      color: white;
+      border: none;
+      padding: .55rem 1.2rem;
+      border-radius: 30px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .add-btn:hover { background: var(--brown); transform: scale(1.04); }
+
+    /* Stars */
+    .stars { color: #f5b942; font-size: .85rem; margin-bottom: .3rem; }
+
+    /* ── FEATURES STRIP ── */
+    .features {
+      background: var(--brown);
+      color: white;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+    }
+    .feature {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .feature:last-child { border-right: none; }
+    .feature-icon { font-size: 2.2rem; margin-bottom: .8rem; }
+    .feature h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      margin-bottom: .4rem;
+    }
+    .feature p { font-size: .85rem; opacity: .65; line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #2e1a0f;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: .85rem;
+    }
+    footer strong { color: rgba(255,255,255,.9); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Staggered cards */
+    .card:nth-child(1) { animation-delay: .05s; }
+    .card:nth-child(2) { animation-delay: .10s; }
+    .card:nth-child(3) { animation-delay: .15s; }
+    .card:nth-child(4) { animation-delay: .20s; }
+    .card:nth-child(5) { animation-delay: .25s; }
+    .card:nth-child(6) { animation-delay: .30s; }
+    .card:nth-child(7) { animation-delay: .35s; }
+    .card:nth-child(8) { animation-delay: .40s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; text-align: center; }
+      .hero p { margin: 0 auto 2rem; }
+      .hero-image { display: none; }
+      nav ul { display: none; }
+      .catalog { padding: 1rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">La <span>Pastelería</span></div>
+  <ul>
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#">Pedidos</a></li>
+    <li><a href="#">Nosotros</a></li>
+    <li><a href="#">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow">✦ Hecho con amor</span>
+    <h1>Pasteles que <em>enamoran</em> desde el primer bocado</h1>
+    <p>Elaboramos cada pastel con ingredientes frescos y recetas artesanales. Desde clásicos irresistibles hasta creaciones únicas para cada ocasión especial.</p>
+    <a href="#catalogo" class="btn">Ver catálogo</a>
+    <a href="#" class="btn btn-outline">Pedido personalizado</a>
+  </div>
+  <div class="hero-image">
+    <div class="cake-showcase">
+      🎂
+      <div class="cake-badge">
+        <strong>⭐ 4.9</strong>
+        +500 reseñas
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature">
+    <div class="feature-icon">🌾</div>
+    <h4>Ingredientes naturales</h4>
+    <p>Sin conservantes ni artificiales</p>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">🚚</div>
+    <h4>Entrega a domicilio</h4>
+    <p>En toda la ciudad, mismo día</p>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">🎨</div>
+    <h4>Diseño personalizado</h4>
+    <p>Hacemos tus sueños realidad</p>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">💝</div>
+    <h4>Para toda ocasión</h4>
+    <p>Bodas, cumpleaños y más</p>
+  </div>
+</div>
+
+<!-- CATALOG -->
+<section id="catalogo">
+  <div class="section-header">
+    <h2>Nuestro Catálogo</h2>
+    <p>Una selección de nuestros pasteles más queridos, elaborados con ingredientes de primera calidad.</p>
+    <div class="divider"><span></span>🍰<span></span></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active">Todos</button>
+    <button class="filter-btn">Clásicos</button>
+    <button class="filter-btn">Frutas</button>
+    <button class="filter-btn">Chocolate</button>
+    <button class="filter-btn">Sin gluten</button>
+    <button class="filter-btn">Ocasiones</button>
+  </div>
+
+  <div class="catalog">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#fce4d0,#f9c4a0);">
+        🎂
+        <span class="card-badge">Popular</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Clásicos</div>
+        <div class="stars">★★★★★</div>
+        <h3>Pastel de Vainilla Clásico</h3>
+        <p>Esponjoso bizcocho de vainilla bourbon con crema de mantequilla y mermelada de fresas.</p>
+        <div class="card-footer">
+          <span class="price">$28.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#3a2318,#6b3e2a);">
+        🍫
+      </div>
+      <div class="card-body">
+        <div class="card-category">Chocolate</div>
+        <div class="stars">★★★★★</div>
+        <h3>Selva Negra</h3>
+        <p>Capas de bizcocho de chocolate con chantilly, cerezas al marrasquino y virutas de chocolate.</p>
+        <div class="card-footer">
+          <span class="price">$35.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#fde8f0,#f9c0d5);">
+        🍓
+        <span class="card-badge">Nuevo</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Frutas</div>
+        <div class="stars">★★★★☆</div>
+        <h3>Fresas con Crema</h3>
+        <p>Delicado bizcocho genovés con crema pastelera, fresas frescas y glaseado de frambuesa.</p>
+        <div class="card-footer">
+          <span class="price">$30.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#fff3cc,#ffe080);">
+        🍋
+      </div>
+      <div class="card-body">
+        <div class="card-category">Frutas</div>
+        <div class="stars">★★★★★</div>
+        <h3>Tarta de Limón</h3>
+        <p>Base de masa sablée, crema de limón siciliano y merengue italiano tostado en la cima.</p>
+        <div class="card-footer">
+          <span class="price">$26.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#e8f5e9,#a5d6a7);">
+        🌿
+        <span class="card-badge">Sin gluten</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Sin gluten</div>
+        <div class="stars">★★★★☆</div>
+        <h3>Pastel de Zanahoria</h3>
+        <p>Húmedo bizcocho de zanahoria con nueces, especias cálidas y frosting de queso crema.</p>
+        <div class="card-footer">
+          <span class="price">$29.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#5a3825,#c96b6b);">
+        🍰
+      </div>
+      <div class="card-body">
+        <div class="card-category">Ocasiones</div>
+        <div class="stars">★★★★★</div>
+        <h3>Red Velvet</h3>
+        <p>El clásico americano con su característico color rojo y suave frosting de queso crema.</p>
+        <div class="card-footer">
+          <span class="price">$34.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#f3e5f5,#ce93d8);">
+        🫐
+        <span class="card-badge">Popular</span>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Frutas</div>
+        <div class="stars">★★★★★</div>
+        <h3>Cheesecake de Blueberry</h3>
+        <p>Base crujiente de galleta, relleno cremoso de queso y coulis de arándanos frescos.</p>
+        <div class="card-footer">
+          <span class="price">$32.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card">
+      <div class="card-img" style="background: linear-gradient(135deg,#d4843e,#f5c97a);">
+        🎉
+      </div>
+      <div class="card-body">
+        <div class="card-category">Ocasiones</div>
+        <div class="stars">★★★★★</div>
+        <h3>Pastel de Cumpleaños</h3>
+        <p>Tres capas de vainilla con buttercream de colores y decoración festiva personalizable.</p>
+        <div class="card-footer">
+          <span class="price">$40.00</span>
+          <button class="add-btn">Agregar 🛒</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>La Pastelería</strong> · Hecho con 🤍 y mucha azúcar · Todos los derechos reservados</p>
+</footer>
+
+<script>
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Add to cart feedback
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const original = btn.textContent;
+      btn.textContent = '✓ Agregado';
+      btn.style.background = '#9aaa8e';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+</script>
+
+</body>
+</html>
